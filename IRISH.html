@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Irish</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Dancing+Script:wght@500;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <style>
+    /* ---------- GLOBAL DARK STARRY THEME ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-deep: #050a14;
+      --navy: #0a1929;
+      --navy-soft: #102a43;
+      --blue-primary: #60a5fa;
+      --blue-hover: #3b82f6;
+      --blue-light: #dbeafe;
+      --white: #ffffff;
+      --glass-bg: rgba(15, 23, 42, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
+      --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      background: #050a14;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background Starry Sky */
+    .bg-stars {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at top right, #1a1a2e 0%, #050a14 100%);
+      z-index: -2;
+    }
+
+    .stars {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(1px 1px at 10% 20%, #fff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 30% 60%, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 50% 40%, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 70% 80%, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 90% 10%, #fff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 15% 90%, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 85% 50%, #fff, rgba(0,0,0,0));
+      background-size: 200px 200px;
+      animation: twinkle 4s infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+
+    /* ---------- MUSIC BUTTON ---------- */
+    .music-btn {
+      position: fixed; top: 20px; right: 20px; width: 50px; height: 50px;
+      background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+      border-radius: 50%; display: none; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-lg); cursor: pointer; z-index: 999; color: var(--white);
+      font-size: 1.2rem; transition: all 0.3s ease; border: 1px solid var(--glass-border);
+    }
+
+    .music-btn:hover { transform: scale(1.1); background: var(--blue-primary); color: var(--navy); }
+    .music-btn.playing { animation: pulse 2s infinite; background: var(--blue-primary); color: var(--navy); border-color: var(--blue-primary); }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(96, 165, 250, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0); }
+    }
+
+    /* ---------- LOGIN PAGE (GLASS) ---------- */
+    .login-container {
+      background: var(--glass-bg); backdrop-filter: blur(20px);
+      border-radius: 24px; padding: 3.5rem 3rem; box-shadow: var(--shadow-xl);
+      border: 1px solid var(--glass-border); width: 480px; max-width: 90%;
+      text-align: center; position: relative; overflow: hidden; z-index: 10;
+    }
+
+    .login-container::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue-primary), transparent);
+    }
+
+    .login-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 72px; height: 72px; border-radius: 20px; background: rgba(96, 165, 250, 0.1);
+      color: var(--blue-primary); font-size: 2rem; margin-bottom: 1.75rem;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+
+    .login-container h1 {
+      font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--white);
+      margin-bottom: 0.5rem; font-weight: 700; letter-spacing: 1px;
+    }
+
+    .login-container .subtitle { color: #94a3b8; margin-bottom: 2.5rem; font-size: 1rem; }
+
+    .input-group { text-align: left; margin-bottom: 1.5rem; }
+    .input-group label {
+      display: block; font-size: 0.85rem; font-weight: 500;
+      color: #cbd5e1; margin-bottom: 0.5rem;
+    }
+
+    .login-container input {
+      width: 100%; padding: 0.9rem 1.1rem; font-size: 1rem;
+      border: 1px solid var(--glass-border); border-radius: 10px;
+      outline: none; font-weight: 400; transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.05); color: var(--white);
+    }
+
+    .login-container input:focus { 
+      border-color: var(--blue-primary); 
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15); 
+    }
+
+    .login-btn {
+      background: var(--blue-primary); border: none; color: var(--navy);
+      font-size: 1rem; font-weight: 600; padding: 0.95rem 2rem; width: 100%;
+      border-radius: 10px; cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(96, 165, 250, 0.3);
+    }
+
+    .login-btn:hover { background: var(--white); transform: translateY(-1px); }
+
+    .error-msg {
+      color: #fca5a5; margin-top: 1.25rem; font-weight: 500; font-size: 0.9rem;
+      background: rgba(220, 38, 38, 0.2); padding: 0.75rem 1rem; border-radius: 8px;
+      border: 1px solid rgba(220, 38, 38, 0.4); display: flex; align-items: center; gap: 0.5rem; justify-content: center;
+    }
+
+    /* ---------- MAIN WEBSITE ---------- */
+    .birthday-site { display: none; width: 100%; min-height: 100vh; background: transparent; position: relative; z-index: 10; }
+
+    .side-nav {
+      position: fixed; left: 0; top: 0; height: 100vh; width: 92px;
+      background: rgba(10, 25, 41, 0.8); backdrop-filter: blur(15px);
+      border-right: 1px solid var(--glass-border);
+      display: flex; flex-direction: column;
+      align-items: center; padding-top: 2rem; gap: 0.75rem;
+      z-index: 100; transition: width 0.3s ease;
+    }
+
+    .nav-logo {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue-primary), #8b5cf6);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--navy); font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem;
+    }
+
+    .nav-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 68px; height: 68px; border-radius: 14px; background: transparent;
+      border: none; cursor: pointer; color: #94a3b8;
+      font-weight: 500; font-size: 0.7rem; gap: 5px; transition: all 0.2s ease;
+    }
+
+    .nav-btn i { font-size: 1.35rem; transition: transform 0.2s ease; }
+    .nav-btn span { font-size: 0.65rem; text-transform: uppercase; font-weight: 600; }
+    .nav-btn:hover { background: rgba(255, 255, 255, 0.05); color: var(--white); }
+    .nav-btn.active { background: var(--blue-primary); color: var(--navy); box-shadow: 0 4px 15px rgba(96, 165, 250, 0.4); }
+
+    .main-content { margin-left: 92px; padding: 0; min-height: 100vh; width: calc(100% - 92px); display: flex; flex-direction: column; align-items: center; justify-content: center;}
+    .page { display: none; width: 100%; min-height: 100vh; animation: fadeIn 0.8s ease; position: relative;}
+    .page.active-page { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+    /* ---------- HOME PAGE (CINEMATIC) ---------- */
+    .home-text-container {
+      text-align: center;
+      color: var(--white);
+      z-index: 10;
+      padding: 2rem;
+      animation: textFadeIn 3s ease-out;
+    }
+
+    @keyframes textFadeIn {
+      0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .home-text-container .overline {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--blue-primary);
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+
+    .home-text-container h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 5.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+      text-shadow: 0 0 40px rgba(96, 165, 250, 0.6);
+    }
+
+    .home-text-container h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-style: italic;
+      color: var(--blue-light);
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    .home-text-container .date-badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      display: inline-block;
+      backdrop-filter: blur(5px);
+    }
+
+    /* ---------- MESSAGE PAGE (TYPEWRITER GLASS) ---------- */
+    .message-glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(25px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 3.5rem 4rem;
+      max-width: 650px;
+      width: 90%;
+      text-align: center;
+      box-shadow: var(--shadow-xl);
+      color: var(--white);
+      position: relative;
+      z-index: 10;
+    }
+
+    .message-glass-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-style: italic;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .message-glass-card .subtitle {
+      font-size: 0.95rem;
+      color: var(--blue-primary);
+      margin-bottom: 2rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .typewriter-container {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      min-height: 200px;
+      white-space: pre-wrap;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background-color: var(--blue-primary);
+      animation: blink 0.7s infinite;
+      vertical-align: bottom;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .message-glass-card .signature {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .message-glass-card .signature.show {
+      opacity: 1;
+    }
+
+    .replay-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--white);
+      padding: 0.7rem 1.8rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .replay-btn:hover {
+      background: var(--white);
+      color: var(--navy);
+    }
+
+    /* ---------- PICTURES PAGE (CAROUSEL) ---------- */
+    .gallery-wrapper { width: 100%; padding: 2rem 3rem; display: flex; flex-direction: column; align-items: center; }
+    .gallery-header { max-width: 1000px; margin: 0 auto 2rem; text-align: center; }
+    .gallery-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--white); margin-bottom: 0.4rem; }
+    .gallery-header p { color: #94a3b8; font-size: 1rem; }
+
+    .carousel-container {
+      max-width: 1000px; margin: 0 auto; position: relative; border-radius: 24px;
+      overflow: hidden; background: #000; height: 600px; width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 60px rgba(96, 165, 250, 0.15);
+      border: 1px solid var(--glass-border);
+    }
+
+    .carousel-slides { position: relative; width: 100%; height: 100%; }
+
+    .carousel-slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0; visibility: hidden; transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .carousel-slide.active-slide { opacity: 1; visibility: visible; z-index: 2; }
+
+    .carousel-slide img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+    }
+
+    .carousel-slide:hover img { transform: scale(1.03); filter: brightness(1.1); }
+
+    .slide-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 6rem 3rem 2.5rem 3rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 40%, transparent 100%);
+      color: var(--white); display: flex; flex-direction: column; justify-content: flex-end;
+      pointer-events: none; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    }
+    
+    .slide-caption h3 {
+      font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 600;
+      margin-bottom: 0.3rem; letter-spacing: 0.5px; line-height: 1.2;
+    }
+    
+    .slide-caption p { font-size: 1.1rem; color: var(--blue-light); font-weight: 400; letter-spacing: 0.5px; }
+
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      width: 50px; height: 50px;
+      border-radius: 50%; font-size: 1.2rem; cursor: pointer; color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease; z-index: 10;
+    }
+
+    .carousel-btn:hover { background: var(--blue-primary); color: var(--navy); border-color: var(--blue-primary); transform: translateY(-50%) scale(1.1); }
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
+    .carousel-indicators {
+      position: absolute; top: 20px; right: 20px; display: flex; gap: 6px; z-index: 10;
+      background: rgba(0, 0, 0, 0.5); padding: 8px 14px; border-radius: 100px; backdrop-filter: blur(10px);
+      max-width: 80%; overflow-x: auto; scrollbar-width: none;
+    }
+    .carousel-indicators::-webkit-scrollbar { display: none; }
+
+    .dot {
+      width: 8px; height: 8px; flex-shrink: 0; background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%; cursor: pointer; transition: all 0.25s ease; border: none;
+    }
+    .dot.active-dot { background: var(--white); width: 20px; border-radius: 4px; }
+
+    /* ---------- WISH JAR PAGE ---------- */
+    .wish-wrapper {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 100%; max-width: 800px; padding: 2rem; z-index: 10; position: relative;
+    }
+
+    .wish-header { text-align: center; margin-bottom: 2rem; }
+    .wish-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--white); margin-bottom: 0.5rem; }
+    .wish-header p { color: #94a3b8; font-size: 1rem; }
+
+    /* The Jar Container */
+    .jar-container {
+      position: relative;
+      width: 300px; height: 350px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      margin-bottom: 2rem;
+    }
+    .jar-container:hover { transform: scale(1.02); }
+    .jar-container:active { transform: scale(0.95); }
+
+    /* The Glass Jar Drawing */
+    .jar-glass {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 220px; height: 280px;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.02));
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px 20px 60px 60px;
+      box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.1), 0 15px 40px rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    /* Jar Lid */
+    .jar-lid {
+      position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+      width: 160px; height: 25px;
+      background: linear-gradient(to bottom, #8b5cf6, #6d28d9);
+      border-radius: 10px 10px 5px 5px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 3;
+    }
+
+    /* Glass Reflection */
+    .jar-reflection {
+      position: absolute; top: 20px; left: 20px;
+      width: 30px; height: 180px;
+      background: linear-gradient(to right, rgba(255,255,255,0.4), transparent);
+      border-radius: 15px;
+      z-index: 4;
+    }
+
+    /* The Glowing Stars inside */
+    .jar-stars {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1;
+      display: flex; flex-wrap: wrap; align-content: flex-end; justify-content: center;
+      padding: 10px; gap: 5px;
+    }
+
+    .glowing-star {
+      width: 15px; height: 15px;
+      background: #fde047;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: starPulse 2s infinite alternate;
+      opacity: 0;
+    }
+
+    .glowing-star.show { opacity: 1; }
+
+    @keyframes starPulse {
+      0% { transform: scale(0.8); opacity: 0.6; filter: drop-shadow(0 0 2px #fde047); }
+      100% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px #fde047); }
+    }
+
+    /* The Text that reveals */
+    .wish-reveal-text {
+      text-align: center;
+      min-height: 100px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: var(--blue-primary);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
+    }
+
+    .wish-reveal-text.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- RESPONSIVE DESIGN ---------- */
+    @media (max-width: 1024px) { 
+      .carousel-container { height: 500px; }
+    }
+
+    @media (max-width: 900px) {
+      .side-nav { width: 76px; padding-top: 1.5rem; }
+      .nav-btn { width: 58px; height: 62px; }
+      .nav-btn i { font-size: 1.2rem; }
+      .main-content { margin-left: 76px; width: calc(100% - 76px); }
+      
+      .home-text-container h1 { font-size: 4rem; }
+      .home-text-container h2 { font-size: 2.2rem; }
+      .message-glass-card { padding: 3rem 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .side-nav { 
+        width: 100%; height: 70px; flex-direction: row; 
+        bottom: 0; top: auto; padding-top: 0; justify-content: space-around;
+        border-top: 1px solid var(--glass-border); border-right: none;
+        background: rgba(10, 25, 41, 0.95);
+      }
+      .nav-logo { display: none; }
+      .nav-btn { width: 60px; height: 100%; border-radius: 0; }
+      .nav-btn.active { background: transparent; box-shadow: none; color: var(--blue-primary); }
+      .nav-btn.active i { color: var(--blue-primary); transform: translateY(-3px); }
+      
+      .main-content { margin-left: 0; width: 100%; padding-bottom: 70px; }
+      
+      .home-text-container h1 { font-size: 3rem; }
+      .home-text-container h2 { font-size: 1.8rem; }
+      .home-text-container .overline { font-size: 1.4rem; }
+      
+      .message-glass-card { padding: 2.5rem 1.5rem; }
+      .message-glass-card h2 { font-size: 1.8rem; }
+      .typewriter-container { font-size: 0.9rem; min-height: 250px; }
+      
+      .gallery-wrapper { padding: 1.5rem 1rem; }
+      .carousel-container { height: 450px; border-radius: 16px; }
+      .slide-caption { padding: 4rem 1.5rem 1.5rem 1.5rem; }
+      .slide-caption h3 { font-size: 1.6rem; }
+      .slide-caption p { font-size: 0.9rem; }
+      
+      .carousel-btn { width: 36px; height: 36px; font-size: 0.9rem; }
+      .prev { left: 10px; } .next { right: 10px; }
+      
+      .carousel-indicators { top: 10px; right: 10px; padding: 6px 10px; }
+      .dot { width: 6px; height: 6px; }
+      .dot.active-dot { width: 16px; }
+
+      .music-btn { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 1rem; }
+      
+      .jar-container { width: 250px; height: 300px; }
+      .jar-glass { width: 180px; height: 230px; }
+      .jar-lid { width: 130px; }
+      .wish-reveal-text { font-size: 1.5rem; margin-top: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STARRY BACKGROUND -->
+  <div class="bg-stars"><div class="stars"></div></div>
+
+  <!-- MUSIC BUTTON & AUDIO PLAYER -->
+  <div class="music-btn" id="musicBtn">
+    <i class="fas fa-music"></i>
+  </div>
+  
+  <audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- LOGIN PAGE -->
+  <div class="login-container" id="loginContainer">
+    <div class="login-badge"><i class="fas fa-gem"></i></div>
+    
+    <h1>Welcome</h1>
+    <p class="subtitle">Enter your details to access your private birthday page</p>
+    
+    <div class="input-group">
+      <label for="nameInput">Your Name</label>
+      <input type="text" id="nameInput" placeholder="Type your name" autocomplete="off">
+    </div>
+    
+    <div class="input-group">
+      <label for="bdayInput">Your Birthday (Month Day Year)</label>
+      <input type="text" id="bdayInput" placeholder="e.g. 12082007" autocomplete="off">
+    </div>
+    
+    <button class="login-btn" id="loginBtn">Continue</button>
+    
+    <div id="errorMsg" class="error-msg" style="display: none;">
+      <i class="fas fa-exclamation-circle"></i>
+      <span>Incorrect name or birthday. Please try again!</span>
+    </div>
+  </div>
+
+  <!-- BIRTHDAY SITE -->
+  <div class="birthday-site" id="birthdaySite">
+    <nav class="side-nav">
+      <div class="nav-logo">I</div>
+      <button class="nav-btn active" data-page="home" id="homeBtn">
+        <i class="fas fa-house"></i><span>Home</span>
+      </button>
+      <button class="nav-btn" data-page="message" id="messageBtn">
+        <i class="fas fa-envelope"></i><span>Message</span>
+      </button>
+      <button class="nav-btn" data-page="pictures" id="picturesBtn">
+        <i class="fas fa-images"></i><span>Pictures</span>
+      </button>
+      <button class="nav-btn" data-page="wishjar" id="wishBtn">
+        <i class="fas fa-star"></i><span>Wish Jar</span>
+      </button>
+    </nav>
+
+    <div class="main-content">
+      
+      <!-- HOME PAGE -->
+      <div class="page active-page" id="homePage">
+        <div class="home-text-container">
+          <div class="overline">A Love Letter For You</div>
+          <h1>Your Special Day</h1>
+          <h2>Irish</h2>
+          <div class="date-badge">December 8, 2007</div>
+        </div>
+      </div>
+
+      <!-- MESSAGE PAGE -->
+      <div class="page" id="messagePage">
+        <div class="message-glass-card">
+          <h2>Birthday Wishes</h2>
+          <div class="subtitle">Happy Birthday, my love 💙</div>
+          
+          <div class="typewriter-container">
+            <span id="typewriter-text"></span><span class="cursor"></span>
+          </div>
+          
+          <div class="signature" id="signatureText">Forever yours, 💙</div>
+          
+          <button class="replay-btn" onclick="startTypewriter()">
+            <i class="fas fa-rotate-left"></i> Replay from start
+          </button>
+        </div>
+      </div>
+
+      <!-- PICTURES PAGE -->
+      <div class="page" id="picturesPage">
+        <div class="gallery-wrapper">
+          <div class="gallery-header">
+            <h2>Memories</h2>
+            <p>A collection of moments worth keeping.</p>
+          </div>
+
+          <div class="carousel-container" id="carouselContainer">
+            <div class="carousel-slides" id="carouselSlides">
+              
+              <div class="carousel-slide active-slide">
+                <img src="1.jpeg" alt="Memory 1">
+                <div class="slide-caption"><h3>Our First Adventure</h3><p>The day everything started.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="2.jpeg" alt="Memory 2">
+                <div class="slide-caption"><h3>That Beautiful Smile</h3><p>My favorite thing to see.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="3.jpeg" alt="Memory 3">
+                <div class="slide-caption"><h3>Unforgettable Moments</h3><p>Times I will never forget.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="4.jpeg" alt="Memory 4">
+                <div class="slide-caption"><h3>Just the Two of Us</h3><p>Perfect in every way.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="5.jpeg" alt="Memory 5">
+                <div class="slide-caption"><h3>Laughing Together</h3><p>You always know how to make me smile.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="6.jpeg" alt="Memory 6">
+                <div class="slide-caption"><h3>A Perfect Day</h3><p>Weather was great, but you were better.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="7.jpeg" alt="Memory 7">
+                <div class="slide-caption"><h3>Caught in the Moment</h3><p>Pure happiness.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="8.jpg" alt="Memory 8">
+                <div class="slide-caption"><h3>My Favorite View</h3><p>Nothing compares to you.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="9.jpg" alt="Memory 9">
+                <div class="slide-caption"><h3>Sweet Memories</h3><p>Every moment is a gift.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="10.webp" alt="Memory 10">
+                <div class="slide-caption"><h3>Always in My Heart</h3><p>No matter where we are.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="11.webp" alt="Memory 11">
+                <div class="slide-caption"><h3>A Glimpse of Forever</h3><p>Looking forward to the future.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="12.jpg" alt="Memory 12">
+                <div class="slide-caption"><h3>Exploring Together</h3><p>My favorite travel buddy.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="13.jpg" alt="Memory 13">
+                <div class="slide-caption"><h3>Too Good to be True</h3><p>I am so lucky.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="14.jpg" alt="Memory 14">
+                <div class="slide-caption"><h3>Quiet & Peaceful</h3><p>Just enjoying each other's company.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="15.jpg" alt="Memory 15">
+                <div class="slide-caption"><h3>Sunshine and You</h3><p>Brightening up my world.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="16.jpg" alt="Memory 16">
+                <div class="slide-caption"><h3>Endless Conversations</h3><p>I could talk to you forever.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="17.jpg" alt="Memory 17">
+                <div class="slide-caption"><h3>A Special Place</h3><p>Somewhere we hold dear.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="18.jpg" alt="Memory 18">
+                <div class="slide-caption"><h3>Captured Happiness</h3><p>Genuine joy.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="19.jpg" alt="Memory 19">
+                <div class="slide-caption"><h3>More Adventures Ahead</h3><p>This is only the beginning.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="20.jpg" alt="Memory 20">
+                <div class="slide-caption"><h3>My Constant</h3><p>Always there for me.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="21.jpg" alt="Memory 21">
+                <div class="slide-caption"><h3>A Beautiful Soul</h3><p>Inside and out.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="22.jpg" alt="Memory 22">
+                <div class="slide-caption"><h3>Simply Perfect</h3><p>You are everything I need.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="23.jpg" alt="Memory 23">
+                <div class="slide-caption"><h3>Making Memories</h3><p>One day at a time.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="24.jpg" alt="Memory 24">
+                <div class="slide-caption"><h3>Unconditional Love</h3><p>I am so grateful for you.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="25.jpg" alt="Memory 25">
+                <div class="slide-caption"><h3>A Moment to Cherish</h3><p>Holding onto this memory.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="26.jpg" alt="Memory 26">
+                <div class="slide-caption"><h3>Always Laughing</h3><p>My favorite sound.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="27.jpg" alt="Memory 27">
+                <div class="slide-caption"><h3>My Safe Space</h3><p>Wherever you are.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="28.png" alt="Memory 28">
+                <div class="slide-caption"><h3>Forever Yours</h3><p>Today, tomorrow, and always.</p></div>
+              </div>
+              <div class="carousel-slide">
+                <img src="29.jpg" alt="Memory 29">
+                <div class="slide-caption"><h3>Happy Birthday, Irish</h3><p>The best is yet to come.</p></div>
+              </div>
+
+            </div>
+
+            <button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-indicators" id="carouselDots"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW WISH JAR PAGE -->
+      <div class="page" id="wishjarPage">
+        <div class="wish-wrapper">
+          <div class="wish-header">
+            <h2>A Jar of Wishes for You</h2>
+            <p>Tap the jar to pull out a special wish just for you 💙</p>
+          </div>
+
+          <!-- The Clickable Jar -->
+          <div class="jar-container" id="jarContainer">
+            <div class="jar-glass">
+              <div class="jar-reflection"></div>
+              <div class="jar-stars" id="jarStars">
+                <!-- Stars will be generated by JS -->
+              </div>
+            </div>
+            <div class="jar-lid"></div>
+          </div>
+
+          <!-- The Revealed Wish -->
+          <div class="wish-reveal-text" id="wishText">
+            <!-- Text will appear here -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---------- LOGIN LOGIC ----------
+      const loginContainer = document.getElementById('loginContainer');
+      const birthdaySite = document.getElementById('birthdaySite');
+      const musicBtn = document.getElementById('musicBtn');
+      
+      const nameInput = document.getElementById('nameInput');
+      const bdayInput = document.getElementById('bdayInput');
+      const loginBtn = document.getElementById('loginBtn');
+      const errorMsg = document.getElementById('errorMsg');
+
+      const ALLOWED_NAME = 'IRISH';
+
+      loginBtn.addEventListener('click', function() {
+        const nameCorrect = nameInput.value.trim().toUpperCase() === ALLOWED_NAME;
+        
+        const bdayClean = bdayInput.value.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const bdayCorrect = bdayClean === '12082007' || bdayClean === 'dec82007' || bdayClean === 'dec082007' || bdayClean === '12dec2007';
+
+        if (nameCorrect && bdayCorrect) {
+          loginContainer.style.display = 'none';
+          birthdaySite.style.display = 'block';
+          musicBtn.style.display = 'flex';
+          
+          confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#60a5fa', '#dbeafe', '#ffffff']
+          });
+          
+          document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+          document.getElementById('homePage').classList.add('active-page');
+          document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+          document.getElementById('homeBtn').classList.add('active');
+        } else {
+          errorMsg.style.display = 'flex';
+          bdayInput.value = '';
+          bdayInput.focus();
+        }
+      });
+
+      nameInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') loginBtn.click(); });
+      bdayInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') loginBtn.click(); });
+
+      // ---------- MUSIC PLAYER LOGIC ----------
+      const bgMusic = document.getElementById('bgMusic');
+      let isPlaying = false;
+
+      musicBtn.addEventListener('click', function() {
+        if (isPlaying) {
+          bgMusic.pause();
+          musicBtn.classList.remove('playing');
+          musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+        } else {
+          bgMusic.play();
+          musicBtn.classList.add('playing');
+          musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isPlaying = !isPlaying;
+      });
+
+      // ---------- TYPEWRITER LOGIC ----------
+      const messageText = "I wish you happiness, good health, success, and endless blessings in this new chapter of your life. May all your dreams come true, your days be filled with joy, and your heart always find peace.\n\nThank you for being such a wonderful part of my life. I hope this year brings you everything you've been wishing for. Stay happy, stay healthy, and keep shining. I love you always.";
+      let typewriterTimeout;
+
+      window.startTypewriter = function() {
+        const textElement = document.getElementById('typewriter-text');
+        const signatureElement = document.getElementById('signatureText');
+        
+        textElement.innerHTML = '';
+        signatureElement.classList.remove('show');
+        clearTimeout(typewriterTimeout);
+        
+        let i = 0;
+        const speed = 40; 
+
+        function typeWriter() {
+          if (i < messageText.length) {
+            if (messageText.charAt(i) === '\n') {
+              textElement.innerHTML += '<br>';
+            } else {
+              textElement.innerHTML += messageText.charAt(i);
+            }
+            i++;
+            typewriterTimeout = setTimeout(typeWriter, speed);
+          } else {
+            signatureElement.classList.add('show');
+          }
+        }
+        
+        typeWriter();
+      }
+
+      // ---------- WISH JAR LOGIC ----------
+      // Wishes are now entirely focused on HER and her future
+      const wishes = [
+        "I wish you a year filled with endless laughter and genuine joy.",
+        "May all your biggest dreams and secret goals finally come true.",
+        "I wish you peace, good health, and a heart that is always light.",
+        "May you always find the strength to overcome any challenge.",
+        "I wish you exciting new adventures and beautiful places to explore.",
+        "May you always know your worth and never settle for anything less.",
+        "I wish you the confidence to chase whatever sets your soul on fire.",
+        "May you always be surrounded by people who love and appreciate you.",
+        "I wish you perfect health and boundless energy to do what you love.",
+        "May this year bring you the success and recognition you truly deserve."
+      ];
+      
+      let currentWishIndex = 0;
+      const jarStars = document.getElementById('jarStars');
+      const wishTextElement = document.getElementById('wishText');
+      const jarContainer = document.getElementById('jarContainer');
+      
+      // Fill the jar with faint stars visually
+      for(let i=0; i<25; i++){
+        let star = document.createElement('div');
+        star.className = 'glowing-star show';
+        star.style.opacity = Math.random() * 0.4 + 0.1;
+        star.style.position = 'absolute';
+        star.style.bottom = Math.random() * 60 + '%';
+        star.style.left = Math.random() * 80 + 10 + '%';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        jarStars.appendChild(star);
+      }
+
+      // Attach the click event directly to the jar element
+      jarContainer.addEventListener('click', function() {
+        // 1. Create the flying star
+        let flyingStar = document.createElement('div');
+        flyingStar.className = 'glowing-star show';
+        flyingStar.style.position = 'absolute';
+        flyingStar.style.bottom = '20%';
+        flyingStar.style.left = '50%';
+        flyingStar.style.transform = 'translateX(-50%) scale(2)';
+        flyingStar.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+        flyingStar.style.zIndex = '10';
+        jarStars.appendChild(flyingStar);
+        
+        // 2. Animate it flying out and up
+        setTimeout(() => {
+          flyingStar.style.bottom = '150%';
+          flyingStar.style.opacity = '0';
+        }, 50);
+
+        // 3. Remove after animation
+        setTimeout(() => flyingStar.remove(), 1000);
+
+        // 4. Reveal the text
+        wishTextElement.classList.remove('show');
+        
+        setTimeout(() => {
+          wishTextElement.innerHTML = wishes[currentWishIndex];
+          wishTextElement.classList.add('show');
+          
+          // Cycle to next wish
+          currentWishIndex = (currentWishIndex + 1) % wishes.length;
+        }, 300);
+      });
+
+      // ---------- NAVIGATION ----------
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const pages = {
+        home: document.getElementById('homePage'),
+        message: document.getElementById('messagePage'),
+        pictures: document.getElementById('picturesPage'),
+        wishjar: document.getElementById('wishjarPage') 
+      };
+
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const pageId = this.dataset.page;
+          Object.values(pages).forEach(page => page.classList.remove('active-page'));
+          if (pages[pageId]) pages[pageId].classList.add('active-page');
+          navButtons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+
+          if (pageId === 'message') {
+            window.startTypewriter();
+          }
+        });
+      });
+
+      // ---------- CAROUSEL ----------
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dotsContainer = document.getElementById('carouselDots');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+
+      if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < totalSlides; i++) {
+          const dot = document.createElement('span');
+          dot.className = 'dot' + (i === 0 ? ' active-dot' : '');
+          dot.dataset.index = i;
+          dot.addEventListener('click', function() {
+            goToSlide(parseInt(this.dataset.index));
+            resetAutoInterval();
+          });
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      function updateCarousel() {
+        slides.forEach(slide => slide.classList.remove('active-slide'));
+        if (slides[currentIndex]) slides[currentIndex].classList.add('active-slide');
+
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, i) => {
+          if (i === currentIndex) {
+            dot.classList.add('active-dot');
+            dot.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } else {
+            dot.classList.remove('active-dot');
+          }
+        });
+      }
+
+      function goToSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentIndex = index;
+        updateCarousel();
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', () => { goToSlide(currentIndex - 1); resetAutoInterval(); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { goToSlide(currentIndex + 1); resetAutoInterval(); });
+
+      let autoInterval = setInterval(() => {
+        if (birthdaySite.style.display === 'block' && pages.pictures.classList.contains('active-page')) {
+          goToSlide(currentIndex + 1);
+        }
+      }, 5000);
+
+      function resetAutoInterval() {
+        clearInterval(autoInterval);
+        autoInterval = setInterval(() => {
+          if (birthdaySite.style.display === 'block' && pages.pictures.classList.contains('active-page')) {
+            goToSlide(currentIndex + 1);
+          }
+        }, 5000);
+      }
+
+      updateCarousel();
+    })();
+  </script>
+</body>
+</html>
