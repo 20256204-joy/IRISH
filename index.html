@@ -628,10 +628,20 @@
       </div>
 
       <!-- MESSAGE PAGE -->
-<!-- MESSAGE PAGE -->
-<div class="page" id="messagePage">
-  <div class="message-glass-card" style="text-align: center; padding: 5rem 4rem;">
-    <h2 style="font-size: 4rem; letter-spacing: 5px; text-shadow: 0 0 30px rgba(96, 165, 250, 0.8); margin-bottom: 0;">SECRET</h2>
+    <div class="page" id="messagePage">
+      <div class="message-glass-card">
+        <h2>Top Secret</h2>
+        <div class="subtitle">Only for your eyes 💙</div>
+        
+        <div class="typewriter-container" style="text-align: center; font-size: 2.5rem; letter-spacing: 8px; font-weight: bold; color: var(--blue-primary); text-shadow: 0 0 20px rgba(96, 165, 250, 0.6); min-height: 100px;">
+          <span id="typewriter-text"></span><span class="cursor"></span>
+    </div>
+    
+    <div class="signature" id="signatureText" style="margin-top: 1rem;">By Joy, 💙</div>
+    
+    <button class="replay-btn" onclick="startTypewriter()">
+      <i class="fas fa-rotate-left"></i> Replay
+    </button>
   </div>
 </div>
 
@@ -864,8 +874,8 @@
         isPlaying = !isPlaying;
       });
 
-      // ---------- TYPEWRITER LOGIC ----------
-      const messageText = "I wish you happiness, good health, success, and endless blessings in this new chapter of your life. May all your dreams come true, your days be filled with joy, and your heart always find peace.\n\nThank you for being such a wonderful part of my life. I hope this year brings you everything you've been wishing for. Stay happy, stay healthy, and keep shining. I love you always.";
+           // ---------- TYPEWRITER LOGIC (SECRET) ----------
+      const messageText = "S E C R E T";
       let typewriterTimeout;
 
       window.startTypewriter = function() {
@@ -877,19 +887,22 @@
         clearTimeout(typewriterTimeout);
         
         let i = 0;
-        const speed = 40; 
+        const speed = 200; // Medyo mabagal para may suspense
 
         function typeWriter() {
           if (i < messageText.length) {
-            if (messageText.charAt(i) === '\n') {
-              textElement.innerHTML += '<br>';
-            } else {
-              textElement.innerHTML += messageText.charAt(i);
-            }
+            textElement.innerHTML += messageText.charAt(i);
             i++;
             typewriterTimeout = setTimeout(typeWriter, speed);
           } else {
             signatureElement.classList.add('show');
+            // Mag-trigger ng confetti pagkatapos mag-type
+            confetti({
+              particleCount: 100,
+              spread: 80,
+              origin: { y: 0.6 },
+              colors: ['#60a5fa', '#ffffff']
+            });
           }
         }
         
@@ -897,18 +910,17 @@
       }
 
       // ---------- WISH JAR LOGIC ----------
-      // Wishes are now entirely focused on HER and her future
       const wishes = [
-        "I wish you a year filled with endless laughter and genuine joy.",
-        "May all your biggest dreams and secret goals finally come true.",
-        "I wish you peace, good health, and a heart that is always light.",
-        "May you always find the strength to overcome any challenge.",
-        "I wish you exciting new adventures and beautiful places to explore.",
-        "May you always know your worth and never settle for anything less.",
-        "I wish you the confidence to chase whatever sets your soul on fire.",
-        "May you always be surrounded by people who love and appreciate you.",
-        "I wish you perfect health and boundless energy to do what you love.",
-        "May this year bring you the success and recognition you truly deserve."
+        "SECRET 💙",
+        "SECRET 💙",
+        "SECRET 💙",
+        "SECRET 💙",
+        "SECRET 💙",
+        "SECRET 💙",
+        "SECRET 💙",
+        "SECRET 💙",
+        "SECRET 💙",
+        "SECRET 💙"
       ];
       
       let currentWishIndex = 0;
