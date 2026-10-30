@@ -629,15 +629,22 @@
       
             <!-- MESSAGE PAGE -->
       <div class="page" id="messagePage">
-        <div class="message-glass-card" style="text-align: center; padding: 6rem 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="message-glass-card" style="text-align: center; padding: 5rem 4rem;">
+          <h2 style="font-size: 2.5rem; font-style: normal; margin-bottom: 0.5rem; letter-spacing: 2px;">Top Secret</h2>
+          <div class="subtitle">Only for your eyes 💙</div>
           
-          <h2 style="font-size: 4rem; letter-spacing: 15px; text-shadow: 0 0 30px rgba(96, 165, 250, 0.8); margin: 0 0 1rem 0; padding-left: 15px;">
-            SECRET
-          </h2>
-          
-          <div class="subtitle" style="font-size: 1.1rem; margin: 0;">
-            For your eyes 💙
+          <!-- Dito lalabas ang S E C R E T -->
+          <div class="typewriter-container" style="text-align: center; font-family: 'Courier Prime', monospace; font-size: 4rem; font-weight: 700; letter-spacing: 15px; color: var(--blue-primary); text-shadow: 0 0 30px rgba(96, 165, 250, 0.8); min-height: 100px; margin-top: 2rem; margin-bottom: 0; display: flex; justify-content: center; align-items: center; padding-left: 15px;">
+            <span id="typewriter-text"></span><span class="cursor" style="height: 0.8em; width: 6px; background: var(--white); box-shadow: 0 0 10px var(--white); vertical-align: middle;"></span>
           </div>
+          
+          <div class="signature" id="signatureText" style="margin-top: 2rem; opacity: 0; transition: opacity 1s ease;">By Joy, 💙</div>
+          
+          <button class="replay-btn" onclick="startTypewriter()" style="margin-top: 2rem;">
+            <i class="fas fa-rotate-left"></i> Replay
+          </button>
+        </div>
+      </div>
 
         </div>
       </div>
@@ -871,21 +878,21 @@
         isPlaying = !isPlaying;
       });
 
-            // ---------- TYPEWRITER LOGIC ----------
-      const messageText = "SECRET"; // Ito na yung ita-type niya
+           // ---------- TYPEWRITER LOGIC ----------
+      const messageText = "SECRET"; // Ito lang ang ita-type
       let typewriterTimeout;
 
       window.startTypewriter = function() {
         const textElement = document.getElementById('typewriter-text');
         const signatureElement = document.getElementById('signatureText');
         
-        // Reset
+        // I-reset ang text at itago muna ang signature
         textElement.innerHTML = '';
-        signatureElement.classList.remove('show');
+        signatureElement.style.opacity = '0';
         clearTimeout(typewriterTimeout);
         
         let i = 0;
-        const speed = 250; // Medyo mabagal para dramatic ang pag-type ng SECRET
+        const speed = 300; // Medyo mabagal para dramatic
 
         function typeWriter() {
           if (i < messageText.length) {
@@ -893,12 +900,14 @@
             i++;
             typewriterTimeout = setTimeout(typeWriter, speed);
           } else {
-            // Kapag natapos na i-type, lalabas ang "By Joy"
-            signatureElement.classList.add('show');
+            // Kapag natapos na i-type, lalabas si "By Joy"
+            setTimeout(() => {
+              signatureElement.style.opacity = '1';
+            }, 500);
           }
         }
         
-        // Delay ng 1 segundo bago mag-start mag-type
+        // 1 segundo na delay bago magsimula
         typewriterTimeout = setTimeout(typeWriter, 1000);
       }
       
