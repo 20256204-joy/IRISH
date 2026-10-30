@@ -880,7 +880,7 @@
         isPlaying = !isPlaying;
       });
 
-           // ---------- TYPEWRITER LOGIC ----------
+              // ---------- TYPEWRITER LOGIC ----------
       const messageText = "SECRET"; 
       let typewriterTimeout;
 
@@ -893,7 +893,7 @@
         clearTimeout(typewriterTimeout);
         
         let i = 0;
-        const speed = 150; // Binilisan ko (150ms) para hindi ka mainip
+        const speed = 40; // <--- PALITAN MO ITO (80 ang mabilis, 150 ang mabagal)
 
         function typeWriter() {
           if (i < messageText.length) {
@@ -907,7 +907,7 @@
           }
         }
         
-        // 300ms lang ang hihintayin bago mag-type (dating 1000ms)
+        // 300ms lang ang hihintayin bago magsimula
         typewriterTimeout = setTimeout(typeWriter, 300);
       }
       
