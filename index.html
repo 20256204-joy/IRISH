@@ -627,11 +627,18 @@
         </div>
       </div>
       
-      <!-- MESSAGE PAGE -->
+            <!-- MESSAGE PAGE -->
       <div class="page" id="messagePage">
-        <div class="message-glass-card" style="text-align: center; padding: 5rem 4rem;">
-          <h2 style="font-size: 4rem; letter-spacing: 8px; text-shadow: 0 0 30px rgba(96, 165, 250, 0.8); margin-bottom: 2rem;">SECRET</h2>
-          <div class="subtitle" style="font-size: 1.2rem;">Only for your eyes 💙</div>
+        <div class="message-glass-card" style="text-align: center; padding: 6rem 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          
+          <h2 style="font-size: 4rem; letter-spacing: 15px; text-shadow: 0 0 30px rgba(96, 165, 250, 0.8); margin: 0 0 1rem 0; padding-left: 15px;">
+            SECRET
+          </h2>
+          
+          <div class="subtitle" style="font-size: 1.1rem; margin: 0;">
+            For your eyes 💙
+          </div>
+
         </div>
       </div>
       
@@ -864,38 +871,37 @@
         isPlaying = !isPlaying;
       });
 
-           // ---------- TYPEWRITER LOGIC ----------
-      const messageText = "I wish you happiness, good health, success, and endless blessings in this new chapter of your life. May all your dreams come true, your days be filled with joy, and your heart always find peace.\n\nThank you for being such a wonderful part of my life. I hope this year brings you everything you've been wishing for. Stay happy, stay healthy, and keep shining. I love you always.";
+            // ---------- TYPEWRITER LOGIC ----------
+      const messageText = "SECRET"; // Ito na yung ita-type niya
       let typewriterTimeout;
 
       window.startTypewriter = function() {
         const textElement = document.getElementById('typewriter-text');
         const signatureElement = document.getElementById('signatureText');
         
+        // Reset
         textElement.innerHTML = '';
         signatureElement.classList.remove('show');
         clearTimeout(typewriterTimeout);
         
         let i = 0;
-        const speed = 40; 
+        const speed = 250; // Medyo mabagal para dramatic ang pag-type ng SECRET
 
         function typeWriter() {
           if (i < messageText.length) {
-            if (messageText.charAt(i) === '\n') {
-              textElement.innerHTML += '<br>';
-            } else {
-              textElement.innerHTML += messageText.charAt(i);
-            }
+            textElement.innerHTML += messageText.charAt(i);
             i++;
             typewriterTimeout = setTimeout(typeWriter, speed);
           } else {
+            // Kapag natapos na i-type, lalabas ang "By Joy"
             signatureElement.classList.add('show');
           }
         }
         
-        typeWriter();
+        // Delay ng 1 segundo bago mag-start mag-type
+        typewriterTimeout = setTimeout(typeWriter, 1000);
       }
-
+      
       // ---------- WISH JAR LOGIC ----------
       const wishes = [
         "SECRET 💙",
